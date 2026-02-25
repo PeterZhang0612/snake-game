@@ -16,24 +16,57 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffd93d 25%, #6bcf7f 50%, #4d96ff 75%, #9d4edd 100%);
             font-family: 'Arial', sans-serif;
+            animation: gradientShift 15s ease infinite;
+            background-size: 400% 400%;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .game-container {
             text-align: center;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.15);
             padding: 30px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border-radius: 25px;
+            backdrop-filter: blur(15px);
+            box-shadow:
+                0 10px 40px rgba(0, 0, 0, 0.4),
+                0 0 0 2px rgba(255, 255, 255, 0.2) inset;
+            border: 2px solid rgba(255, 255, 255, 0.3);
         }
 
         h1 {
             color: white;
             margin-bottom: 20px;
-            font-size: 2.5em;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-size: 3em;
+            text-shadow:
+                0 0 10px #ff6b6b,
+                0 0 20px #ffd93d,
+                0 0 30px #4d96ff,
+                2px 2px 4px rgba(0, 0, 0, 0.5);
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% {
+                text-shadow:
+                    0 0 10px #ff6b6b,
+                    0 0 20px #ffd93d,
+                    0 0 30px #4d96ff,
+                    2px 2px 4px rgba(0, 0, 0, 0.5);
+            }
+            100% {
+                text-shadow:
+                    0 0 15px #ffd93d,
+                    0 0 25px #6bcf7f,
+                    0 0 35px #9d4edd,
+                    2px 2px 4px rgba(0, 0, 0, 0.5);
+            }
         }
 
         .score-board {
@@ -44,19 +77,31 @@
         }
 
         .score {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 10px 20px;
-            border-radius: 10px;
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.3), rgba(77, 150, 255, 0.3));
+            padding: 12px 24px;
+            border-radius: 15px;
             color: white;
-            font-size: 1.2em;
+            font-size: 1.3em;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .score:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         }
 
         canvas {
-            background: rgba(0, 0, 0, 0.3);
-            border: 3px solid rgba(255, 255, 255, 0.5);
-            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 4px solid rgba(255, 255, 255, 0.6);
+            border-radius: 15px;
             display: block;
             margin: 0 auto;
+            box-shadow:
+                0 0 20px rgba(255, 107, 107, 0.5),
+                0 0 40px rgba(77, 150, 255, 0.3),
+                inset 0 0 20px rgba(255, 255, 255, 0.1);
         }
 
         .controls {
@@ -65,27 +110,86 @@
         }
 
         button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffd93d 50%, #4d96ff 100%);
             color: white;
             border: none;
-            padding: 12px 30px;
-            font-size: 1.1em;
-            border-radius: 25px;
+            padding: 14px 35px;
+            font-size: 1.2em;
+            border-radius: 30px;
             cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.4s;
             margin: 10px 5px;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            box-shadow:
+                0 6px 20px rgba(0, 0, 0, 0.3),
+                0 0 0 2px rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
         }
 
         button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.4),
+                0 0 0 3px rgba(255, 255, 255, 0.3),
+                0 0 30px rgba(255, 107, 107, 0.6);
+            background: linear-gradient(135deg, #ffd93d 0%, #6bcf7f 50%, #9d4edd 100%);
+        }
+
+        button:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+
+        button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.3) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(30deg);
+            transition: transform 0.6s;
+        }
+
+        button:hover::after {
+            transform: rotate(30deg) translateX(100%);
         }
 
         .game-over {
             color: #ff6b6b;
-            font-size: 2em;
-            margin: 10px 0;
+            font-size: 2.5em;
+            margin: 15px 0;
             display: none;
+            text-shadow:
+                0 0 10px #ff6b6b,
+                0 0 20px #ffd93d,
+                0 0 30px #ff6b6b;
+            animation: gameOverPulse 2s ease-in-out infinite;
+            font-weight: bold;
+        }
+
+        @keyframes gameOverPulse {
+            0%, 100% {
+                transform: scale(1);
+                text-shadow:
+                    0 0 10px #ff6b6b,
+                    0 0 20px #ffd93d,
+                    0 0 30px #ff6b6b;
+            }
+            50% {
+                transform: scale(1.1);
+                text-shadow:
+                    0 0 15px #ffd93d,
+                    0 0 25px #ff6b6b,
+                    0 0 35px #ffd93d;
+            }
         }
     </style>
 </head>
@@ -200,13 +304,17 @@
             // 清空画布
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // 画网格（可选）
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+            // 画网格 - 彩虹色网格
             for (let i = 0; i <= tileCount; i++) {
+                const hue = (i * 10 + Date.now() / 500) % 360;
+                ctx.strokeStyle = `hsla(${hue}, 80%, 60%, 0.15)`;
+                ctx.lineWidth = 1;
+
                 ctx.beginPath();
                 ctx.moveTo(i * gridSize, 0);
                 ctx.lineTo(i * gridSize, canvas.height);
                 ctx.stroke();
+
                 ctx.beginPath();
                 ctx.moveTo(0, i * gridSize);
                 ctx.lineTo(canvas.width, i * gridSize);
@@ -216,12 +324,14 @@
             // 画蛇
             snake.forEach((segment, index) => {
                 if (index === 0) {
-                    // 蛇头
-                    ctx.fillStyle = '#4ade80';
+                    // 蛇头 - 彩虹色
+                    const hue = (Date.now() / 50 + index * 10) % 360;
+                    ctx.fillStyle = `hsl(${hue}, 100%, 60%)`;
                 } else {
-                    // 蛇身渐变色
-                    const alpha = 1 - (index / snake.length) * 0.5;
-                    ctx.fillStyle = `rgba(74, 222, 128, ${alpha})`;
+                    // 蛇身彩虹渐变色
+                    const hue = (Date.now() / 100 + index * 15) % 360;
+                    const alpha = 1 - (index / snake.length) * 0.3;
+                    ctx.fillStyle = `hsla(${hue}, 100%, 60%, ${alpha})`;
                 }
                 ctx.fillRect(
                     segment.x * gridSize + 1,
@@ -285,29 +395,49 @@
                 }
             });
 
-            // 画食物
-            ctx.fillStyle = '#ef4444';
+            // 画食物 - 闪烁的星星
+            const time = Date.now() / 200;
+            const pulse = Math.sin(time) * 0.2 + 0.8;
+            const size = (gridSize / 2 - 2) * pulse;
+
+            // 食物主体 - 彩虹色
+            const foodHue = (Date.now() / 100) % 360;
+            ctx.fillStyle = `hsl(${foodHue}, 100%, 60%)`;
             ctx.beginPath();
             ctx.arc(
                 food.x * gridSize + gridSize / 2,
                 food.y * gridSize + gridSize / 2,
-                gridSize / 2 - 2,
+                size,
                 0,
                 Math.PI * 2
             );
             ctx.fill();
 
-            // 食物光泽
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+            // 食物光泽 - 动态效果
+            ctx.fillStyle = `rgba(255, 255, 255, ${0.3 + Math.sin(time * 2) * 0.2})`;
             ctx.beginPath();
             ctx.arc(
                 food.x * gridSize + gridSize / 3,
                 food.y * gridSize + gridSize / 3,
-                gridSize / 6,
+                gridSize / 6 * pulse,
                 0,
                 Math.PI * 2
             );
             ctx.fill();
+
+            // 食物外发光
+            ctx.shadowColor = `hsl(${foodHue}, 100%, 60%)`;
+            ctx.shadowBlur = 15 * pulse;
+            ctx.beginPath();
+            ctx.arc(
+                food.x * gridSize + gridSize / 2,
+                food.y * gridSize + gridSize / 2,
+                size + 2,
+                0,
+                Math.PI * 2
+            );
+            ctx.fill();
+            ctx.shadowBlur = 0;
         }
 
         function gameStep() {
